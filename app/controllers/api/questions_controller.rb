@@ -13,7 +13,26 @@ class Api::QuestionsController < ApplicationController
     render json: {}
   end
 
-  def new
-    render json: Question.all
-  end
+  def create
+   @question = Question.new(question_attributes)
+
+   if @question.save
+     render json: @question, status: :created, location: api_question_url(@question)
+   else
+     respond_with_errors(@question)
+   end
+ end
+
+ private
+
+ def question_params
+   params.require(:data).permit(:type, {
+     attributes: [:text, answers: [:text, :correct]]
+   })
+ end
+
+ def question_attributes
+   question_params[:attributes] || {}
+ end
+
 end
