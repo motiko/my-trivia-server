@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+questions = (1..5).map do |i|
+  answers = (1..4).map {|i| {text: "Answer #{i}", correct: false}}
+  answers[0][:correct] = false
+  { text: "Question number 1",
+    answers: answers.to_json}
+end
+
+Question.create(questions)
