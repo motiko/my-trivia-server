@@ -5,6 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+[Question, Avatar, Player].each(&:delete_all)
+
 questions = (1..5).map do |i|
   answers = (1..4).map {|i| {text: "Answer #{i}", correct: false}}
   answers[0][:correct] = false
@@ -12,4 +14,21 @@ questions = (1..5).map do |i|
     answers: answers.to_json}
 end
 
-Question.create(questions)
+Question.create questions
+
+player_names = ["Amy", "Bender", "Fry", "Hermes", "Zoidberg"]
+
+
+avatars = player_names.map do |name|
+  {img_url: "http://trivia:3000/#{name}.png",
+   name: name}
+end
+
+Avatar.create avatars
+
+players = Avatar.all.to_a.map do |avatar|
+  name = avatar.name
+  {name: name, email: "#{name.downcase}@futurama.org", avatar_id: avatar.id}
+end
+
+Player.create players
