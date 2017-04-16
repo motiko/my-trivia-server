@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170415083945) do
+ActiveRecord::Schema.define(version: 20170416073746) do
+
+  create_table "avatars", force: :cascade do |t|
+    t.text     "img_url"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.string   "email"
+    t.string   "name"
+    t.integer  "avatar_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["avatar_id"], name: "index_players_on_avatar_id"
+  end
 
   create_table "questions", force: :cascade do |t|
     t.string   "text"
