@@ -9,8 +9,8 @@
 
 questions = (1..5).map do |i|
   answers = (1..4).map {|i| {text: "Answer #{i}", correct: false}}
-  answers[0][:correct] = false
-  { text: "Question number 1",
+  answers[0][:correct] = true
+  { text: "Question number #{i}",
     answers: answers.to_json}
 end
 
