@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  questions_amount: 1
+  seconds_per_question: 1
+
+two:
+  name: MyString
+  questions_amount: 1
+  seconds_per_question: 1

@@ -32,3 +32,5 @@ players = Avatar.all.to_a.map do |avatar|
 end
 
 Player.create players
+
+Rules.create name: "Default", questions_amount: 10, seconds_per_question: 30
