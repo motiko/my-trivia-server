@@ -14,6 +14,20 @@ class Api::Play::GameController < ApplicationController
         }
   end
 
+  def get_question
+    @game = Game.find(params[:game_id])
+    next_unanswered = @game.next_unanswered
+    if next_unanswered
+      render json: {game_id: params[:game_id],
+                    question: { id: next_unanswered.id,
+                      text: next_unanswered.question.text,
+                      answers: next_unanswered.question.answers_text}
+            }
+    else
+      render text: "finished"
+    end
+  end
+
   # atomic update (only need for multiplayer game)
   #GameQuestion.where(id: params[:game_question_id])
   #            .update_all(selected_answer: 1,:updated_at => Time.now)
@@ -27,9 +41,9 @@ class Api::Play::GameController < ApplicationController
     next_unanswered = @game.next_unanswered
     if next_unanswered
       render json: {game_id: params[:game_id],
-                    next_question: { id: next_unanswered.id,
-                      question_text: next_unanswered.question.text,
-                      answers_text: next_unanswered.question.answers_text}
+                    question: { id: next_unanswered.id,
+                      text: next_unanswered.question.text,
+                      answers: next_unanswered.question.answers_text}
             }
     else
       render text: "finished"

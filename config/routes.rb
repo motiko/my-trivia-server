@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :play do
       get 'game/:game_id/:game_question_id/answer/:selected_answer', to: 'game#answer'
+      get 'game/:game_id/get_question', to: 'game#get_question'
       get 'game/start', to: 'game#start'
     end
     jsonapi_resources :questions
