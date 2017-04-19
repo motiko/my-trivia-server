@@ -32,8 +32,8 @@ class Api::Play::GameController < ApplicationController
   #GameQuestion.where(id: params[:game_question_id])
   #            .update_all(selected_answer: 1,:updated_at => Time.now)
   def answer
-    @game = Game.find(params[:game_id])
     @game_question = GameQuestion.find(params[:game_question_id])
+    @game = @game_question.game
     @game_question.selected_answer = params[:selected_answer]
     @game_question.save
     @question = @game_question.question
