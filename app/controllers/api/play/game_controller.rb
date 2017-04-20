@@ -3,14 +3,14 @@ class Api::Play::GameController < ApplicationController
     @player = Player.first
     @rules = Rules.first
     questions = Question.all.take(@rules.questions_amount)
-    @game = Game.create(rules: @rules, status: :started)
+    @game = Game.create(rules: @rules)
     @game.questions = questions
     next_unanswered = @game.next_unanswered
     @game.players << @player
     render json: {game_id: @game.id,
-                  next_question: { id: next_unanswered.id,
-                    question_text: next_unanswered.question.text,
-                    answers_text: next_unanswered.question.answers_text}
+                  question: { id: next_unanswered.id,
+                    text: next_unanswered.question.text,
+                    answers: next_unanswered.question.answers_text}
         }
   end
 
@@ -37,7 +37,6 @@ class Api::Play::GameController < ApplicationController
     @game_question.selected_answer = params[:selected_answer]
     @game_question.save
     @question = @game_question.question
-
     next_unanswered = @game.next_unanswered
     if next_unanswered
       render json: {game_id: params[:game_id],
