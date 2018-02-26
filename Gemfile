@@ -22,6 +22,8 @@ gem 'puma', '~> 3.0'
 gem 'graphql'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'activeadmin'
+gem 'devise'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
