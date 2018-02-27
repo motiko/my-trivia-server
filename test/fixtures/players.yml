@@ -3,9 +3,9 @@
 one:
   email: MyString
   name: MyString
-  avatar: 
+  avatar_url: MyString
 
 two:
   email: MyString
   name: MyString
-  avatar: 
+  avatar_url: MyString

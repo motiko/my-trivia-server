@@ -3,7 +3,9 @@
 one:
   text: MyString
   answers: 
+  category: MyText
 
 two:
   text: MyString
   answers: 
+  category: MyText

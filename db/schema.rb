@@ -10,55 +10,54 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170417075807) do
+ActiveRecord::Schema.define(version: 20180227065258) do
 
-  create_table "avatars", force: :cascade do |t|
-    t.text     "img_url"
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string   "namespace"
+    t.text     "body"
+    t.string   "resource_type"
+    t.integer  "resource_id"
+    t.string   "author_type"
+    t.integer  "author_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
+    t.index ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
+    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
   end
 
-  create_table "game_questions", force: :cascade do |t|
-    t.integer  "game_id"
-    t.integer  "question_id"
-    t.integer  "selected_answer"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.index ["game_id"], name: "index_game_questions_on_game_id"
-    t.index ["question_id"], name: "index_game_questions_on_question_id"
-  end
-
-  create_table "games", force: :cascade do |t|
-    t.integer  "rules_id"
-    t.string   "status"
-    t.integer  "score"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["rules_id"], name: "index_games_on_rules_id"
-  end
-
-  create_table "played_games", force: :cascade do |t|
-    t.integer  "game_id"
-    t.integer  "player_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["game_id"], name: "index_played_games_on_game_id"
-    t.index ["player_id"], name: "index_played_games_on_player_id"
+  create_table "admin_users", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.index ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
   end
 
   create_table "players", force: :cascade do |t|
     t.string   "email"
     t.string   "name"
-    t.integer  "avatar_id"
+    t.string   "avatar_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["avatar_id"], name: "index_players_on_avatar_id"
   end
 
   create_table "questions", force: :cascade do |t|
     t.string   "text"
-    t.string   "answers"
+    t.jsonb    "answers"
+    t.string   "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
